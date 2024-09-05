@@ -1,31 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:gravity="center"
-android:background="#D34D2B"> <!-- Background color matching the image -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!-- Counter at the top -->
-<TextView
-    android:id="@+id/counter"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="00:00"
-    android:textSize="36sp"
-    android:textColor="#FFFFFF" />
+    <!-- Semi-transparent orange background -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#D34D2B"
+        />
 
-<!-- Start/Stop button -->
-<Button
-    android:id="@+id/startStopButton"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    android:text="START"
-    android:backgroundTint="#082c62"
-    android:textColor="#FFFFFF"
-    android:textSize="28sp"
-    android:layout_marginTop="250dp" />
+    <!-- Image background with transparency (15% transparency means alpha = 0.15) -->
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/appbg"
+        android:alpha="0.15" />
 
+    <!-- Counter at the top, centered horizontally -->
+    <TextView
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textSize="36sp"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="100dp" /> <!-- Adjust top margin for vertical position -->
 
-</LinearLayout>
+    <!-- Lottie animation behind the button, positioned in the center horizontally -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        app:lottie_rawRes="@raw/ripple"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="-5dp" />
+
+    <!-- Start/Stop button, centered horizontally and aligned to the bottom -->
+    <Button
+        android:id="@+id/startStopButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="START"
+        android:background="@drawable/btn"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="120dp" /> <!-- Adjust bottom margin for vertical position -->
+
+</FrameLayout>
