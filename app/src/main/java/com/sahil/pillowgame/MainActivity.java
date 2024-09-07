@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isMusicPlaying = false;
     private int elapsedTime = 0; // Elapsed time in seconds
     private int delay; // Delay time in seconds for stopping the music
+    private int[] audioResIds = {R.raw.audio1, R.raw.audio2, R.raw.audio3, R.raw.audio4, R.raw.audio5, R.raw.audio6, R.raw.audio7, R.raw.audio8, R.raw.audio9, R.raw.audio10, R.raw.audio11, R.raw.audio12, R.raw.audio13, R.raw.audio14, R.raw.audio15}; // Array of audio files
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
         startStopButton = findViewById(R.id.startStopButton);
         counterTextView = findViewById(R.id.counter);
-
-        mediaPlayer = MediaPlayer.create(this, R.raw.audio1);
 
         startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
         delay = random.nextInt(56) + 5;
         isMusicPlaying = true;
         startStopButton.setText("STOP");
+
+        // Randomly choose an audio file to play
+        int randomAudioResId = audioResIds[random.nextInt(audioResIds.length)];
+
+        // Release the previous MediaPlayer if it exists to avoid memory leaks
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+        }
+
+        // Initialize the MediaPlayer with the randomly chosen audio
+        mediaPlayer = MediaPlayer.create(this, randomAudioResId);
 
         // Start playing the music
         mediaPlayer.start();
@@ -70,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             startStopButton.setText("START");
 
             // Stop and reset the music
-            if (mediaPlayer.isPlaying()) {
+            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
                 mediaPlayer.seekTo(0); // Rewind to the start for the next play
             }
